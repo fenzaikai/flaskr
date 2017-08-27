@@ -1,8 +1,13 @@
 #all the imports 
 
-import os
+import os,sys
 import sqlite3
 from flask import Flask,request,session,g,redirect,url_for,abort,render_template,flash
+sys.path.append('/Users/ke/workshop/flaskr/thrift/online')
+sys.path.append('/Users/ke/workshop/flaskr/thrift/online/dba/')
+sys.path.append('/Users/ke/workshop/flaskr/thrift/online/gen-py/')
+import client_handle
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -49,8 +54,6 @@ def initdb_command():
     init_db()
     print('Initialized the database.')
 
-    
-
 @app.route('/')
 def show_entries():
     db = get_db()
@@ -66,8 +69,15 @@ def add_entry():
     db.execute('insert into entries (title, text) values (?, ?)',
                  [request.form['title'], request.form['text']])
     db.commit()
+
+    save2ExtraDB(request.form['title'],request.form['text'])
+
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
+
+def save2ExtraDB(key,value):
+    dba = client_handle.clientHandler()
+    dba.saveData(key,value)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
