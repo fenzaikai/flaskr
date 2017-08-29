@@ -3,9 +3,10 @@
 import os,sys
 import sqlite3
 from flask import Flask,request,session,g,redirect,url_for,abort,render_template,flash
-sys.path.append('/Users/ke/workshop/flaskr/thrift/online')
-sys.path.append('/Users/ke/workshop/flaskr/thrift/online/dba/')
-sys.path.append('/Users/ke/workshop/flaskr/thrift/online/gen-py/')
+sys.path.append('./thrift/online')
+sys.path.append('./thrift/online/dba/')
+sys.path.append('./thrift/online/gen-py/')
+
 import client_handle
 
 
