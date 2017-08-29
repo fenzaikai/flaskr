@@ -1,12 +1,27 @@
 #!/usr/bin/python  
 #encoding:utf-8  
 
+
 import json
-class JsonHandler(object):
+
+#import json_instance
+#js = json_instance.Singleton().GetInstance()
+#a = 'a:12,b:85'
+#js.genJson(a)
+
+class Singleton(object):
+    instance=None
+    @staticmethod
+    def GetInstance():
+    	if(Singleton.instance==None):
+            if(Singleton.instance==None):
+                Singleton.instance=Singleton()
+        return Singleton.instance
 
     def __init__(self):
           pass
     #输入{String a} 返回{String}，例子：输入：yingyu:30, shuxue:85 返回：对应的json；
+
     def genJson(self,str):
         # 按照，分隔字符串，再按照：取key，value
         a = str.split(',')
